@@ -185,4 +185,4 @@ buildDatabaseFixture
 if [ "$flag_push" = true ]
   then
     pushImage
-fi
+fifsdfds
