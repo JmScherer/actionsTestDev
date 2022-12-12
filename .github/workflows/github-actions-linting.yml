@@ -24,4 +24,4 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name:
       run: |
-        hadolint Dockerfile
+        docker run --rm -i hadolint/hadolint < Dockerfile
