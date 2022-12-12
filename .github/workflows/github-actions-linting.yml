@@ -5,30 +5,16 @@ on: [push, workflow_dispatch]
 jobs:
   build:
     runs-on: ubuntu-latest
-    container:
-      image: hadolint/hadolint:v2.8.0
     strategy:
       fail-fast: false
       matrix:
         python-version: ["3.8"]
-    
-    steps:
-      - name: Linting Dockerfiles with Hadolint
-        run: |
-          docker run --rm -i hadolint/hadolint < Dockerfile
       
-    # steps:
-    # - name: List files in the repository
-    #   run: |
-    #     ls ${{ github.workspace }}
-    # - name: List the working directory of the VM
-    #   run: |
-    #     pwd
-    # - uses: actions/checkout@v3
-    # - name: Set up Python ${{ matrix.python-version }}
-    #   uses: docker://hadolint/hadolint:v2.8.0
-    #   with:
-    #     python-version: ${{ matrix.python-version }}
-    # - name: Linting Dockerfiles with Hadolint
-    #   run: |
-    #     docker run --rm -i hadolint/hadolint < Dockerfile
+    steps:
+    - uses: actions/checkout@v3
+    - name: Pulling Docker containers
+      run: |
+        docker pull hadolint/hadolint:v2.8.0
+    - name: Linting Dockerfiles with Hadolint
+      run: |
+        docker run --rm -i hadolint/hadolint < Dockerfile
