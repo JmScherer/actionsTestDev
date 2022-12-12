@@ -18,10 +18,10 @@ jobs:
       run: |
         pwd
     - uses: actions/checkout@v3
-    - name: 
+    - name: Set up Python ${{ matrix.python-version }}
       uses: docker://hadolint/hadolint:v2.8.0
       with:
         python-version: ${{ matrix.python-version }}
-    - name:
+    - name: Linting Dockerfiles with Hadolint
       run: |
         docker run --rm -i hadolint/hadolint < Dockerfile
