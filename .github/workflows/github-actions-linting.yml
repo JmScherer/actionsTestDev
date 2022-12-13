@@ -19,6 +19,6 @@ jobs:
     - name: Dockerfile linting with Hadolint
       run: |
         docker run --rm -i hadolint/hadolint:v2.8.0 < Dockerfile
-    - name: Shellscript linting with ShellCheck
-      run: |
-        docker run --rm -v "$PWD:/mnt" koalaman/shellcheck:stable build.sh
+    # - name: Shellscript linting with ShellCheck
+    #   run: |
+    #     docker run --rm -v "$PWD:/mnt" koalaman/shellcheck:stable build.sh
