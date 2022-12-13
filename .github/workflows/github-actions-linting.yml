@@ -27,13 +27,13 @@ jobs:
       run: |
         while read -r file;
         do
-          docker run --rm -v "$PWD:/mnt" koalaman/shellcheck:stable "$file"
+          docker run --rm -v "$PWD:/mnt" koalaman/shellcheck:stable --format=gcc "$file"
         done < <(find . -type f ! -path "*node_modules/*" ! -path "*local/*" ! -path "*lib/*" ! -path "./.git/*" -name "*.sh" -print)
     - name: Markdown linting with markdownlint-cli
       run: |
         while read -r file;
         do
-         docker run -v $PWD:/workdir ghcr.io/igorshubovych/markdownlint-cli:latest "$file"
+         docker run -v $PWD:/workdir ghcr.io/igorshubovych/markdownlint-cli:latest --config /etc/config/markdownlint.json "$file"
         done < <(find . -type f ! -path "**/node_modules/*" ! -path "*local/*" ! -path "*lib/*" ! -path "**/.git/*" -name "*.md" -print)
       
       # docker run --rm -v "$PWD:/mnt" koalaman/shellcheck:stable build.sh
