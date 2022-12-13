@@ -16,6 +16,7 @@ jobs:
       run: |
         docker pull hadolint/hadolint:v2.8.0
         docker pull koalaman/shellcheck:stable
+        docker pull ghcr.io/igorshubovych/markdownlint-cli
     - name: Dockerfile linting with Hadolint
       run: |
         while read -r file;
@@ -26,8 +27,14 @@ jobs:
       run: |
         while read -r file;
         do
-          docker run --rm -v "$PWD:/mnt" koalaman/shellcheck:stable "$file"  
+          docker run --rm -v "$PWD:/mnt" koalaman/shellcheck:stable "$file"
         done < <(find . -type f ! -path "*node_modules/*" ! -path "*local/*" ! -path "*lib/*" ! -path "./.git/*" -name "*.sh" -print)
-        
+    - name: 
+      run: |
+      find . -type f ! -path "**/node_modules/*" ! -path "*local/*" ! -path "*lib/*" ! -path "**/.git/*" -name "*.md" |
+	      tr "\n" "\0" |
+	      xargs -0 docker run -v $PWD:/workdir ghcr.io/igorshubovych/markdownlint-cli:latest
+      
+      
       # docker run --rm -v "$PWD:/mnt" koalaman/shellcheck:stable build.sh
       # shellcheck --format=gcc 
