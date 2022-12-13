@@ -14,5 +14,4 @@ if ! grep "$HOSTNAME" /etc/hosts; then
   printf "%s\t%s\n" "127.0.0.1" "$HOSTNAME" | sudo tee -a /etc/hosts > /dev/null;
 else
   echo "Entry already present"
-  fdsf;sjdfjds;fj
-fi
+fifsdfdsf
