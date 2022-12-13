@@ -31,8 +31,10 @@ jobs:
         done < <(find . -type f ! -path "*node_modules/*" ! -path "*local/*" ! -path "*lib/*" ! -path "./.git/*" -name "*.sh" -print)
     - name: Markdown linting with markdownlint-cli
       run: |
-        /bin/bash -c "find . -type f ! -path "**/node_modules/*" ! -path "*local/*" ! -path "*lib/*" ! -path "**/.git/*" -name "*.md" | tr "\n" "\0" | xargs -0 docker run -v $PWD:/workdir ghcr.io/igorshubovych/markdownlint-cli:latest"
-      
+        while read -r file;
+        do
+         docker run -v $PWD:/workdir ghcr.io/igorshubovych/markdownlint-cli:latest "$file"
+        done < <(find . -type f ! -path "**/node_modules/*" ! -path "*local/*" ! -path "*lib/*" ! -path "**/.git/*" -name "*.md" -print)
       
       # docker run --rm -v "$PWD:/mnt" koalaman/shellcheck:stable build.sh
       # shellcheck --format=gcc 
