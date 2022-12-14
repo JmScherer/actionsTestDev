@@ -13,7 +13,5 @@ uvicorn src.main:app
 pylint src tests
 
 ## Testing the project
-###
-##
-######
+
 pytest -s tests
