@@ -2,6 +2,9 @@ name: Static Analysis
 
 on: [push, workflow_dispatch]
 
+env:
+  MARKDOWNLINT_CONFIG: etc/static-analysis-config/markdownlint.json
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -33,5 +36,5 @@ jobs:
       run: |
         while read -r file;
         do
-         docker run -v $PWD:/workdir ghcr.io/igorshubovych/markdownlint-cli:latest --config etc/static-analysis-config/markdownlint.json "$file"
+         docker run -v $PWD:/workdir ghcr.io/igorshubovych/markdownlint-cli:latest --config $MARKDOWNLINT_CONFIG "$file"
         done < <(find . -type f ! -path "**/node_modules/*" ! -path "*local/*" ! -path "*lib/*" ! -path "**/.git/*" -name "*.md" -print)

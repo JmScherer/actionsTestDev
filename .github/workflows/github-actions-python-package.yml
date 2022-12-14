@@ -5,6 +5,9 @@ name: Python package
 
 on: [push, workflow_dispatch]
 
+env:
+  PYLINT_CONFIG: .pylintrc
+
 jobs:
   build:
 
@@ -29,7 +32,7 @@ jobs:
       working-directory: ./backend
       run: |
         # Stop the build if there are Python linting errors
-        pylint --rcfile .pylintrc src tests
+        pylint --rcfile $PYLINT_CONFIG src tests
     - name: Test with pytest
       working-directory: ./backend
       run: |
